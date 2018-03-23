@@ -1,0 +1,17 @@
+{%extends '../base.html'%}
+
+{% block body %}
+<div class="text-center">
+  <h1>Home Page</h1>
+  <h2>RG Vibes</h2>
+
+{% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col">
+      <p>{{premium_content}}</p> <!-- Should only be available if the user is logged in  -->
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
