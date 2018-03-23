@@ -1,10 +1,12 @@
 {% extends '../base.html' %}
+{% load static %}
 {% block body %}
   <div class="text-center">
     <br/>
     <h1>{{title}}</h1>
     <p>{{message}}</p>
   </div>
+  <img id = 'login-img' src="{% static 'img/rgSticker.png'%}" alt=""></img>
   <div class="container align" >
     <div class="col-sm-6 col-12">
       <form method="POST"> {%csrf_token%}

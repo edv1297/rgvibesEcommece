@@ -54,14 +54,12 @@ def register_page(request):
     "form": register_form
     }
 
+    # Creating a new user if the form is valid
     if register_form.is_valid():
-        print("Valid Form")
-        print(register_form.cleaned_data)
-        username = register_form.cleaned_data.get("user_name")
+        username = register_form.cleaned_data.get("username")
         email = register_form.cleaned_data.get("email")
         password = register_form.cleaned_data.get("password")
         new_user = User.objects.create_user(username,email,password)
-        print(new_user)
     return render(request, 'login/register.html', context)
 
 def about(request):
