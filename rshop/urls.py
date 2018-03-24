@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 
 from django.conf.urls import url
 from django.contrib import admin
+from django.views.static import serve
 
 from products.views import ProductListView, product_list_view, ProductDetailView, product_detail_view
 
@@ -25,18 +26,19 @@ from .views import home,contact,about,catalog,login_page,register_page
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^contact', contact),
-    url(r'^about', about),
-    url(r'^catalog', catalog),
-    url(r'^login', login_page),
-    url(r'^products', ProductListView.as_view()),
-    url(r'^product-fbv', product_list_view),
-    url(r'^products-detail', ProductDetailView.as_view()),
-    url(r'^product-detail-fbv', product_detail_view),
-    url(r'^register', register_page),
-    url(r'$', home)
+    url(r'^about/$', about),
+    url(r'^contact/$', contact),
+    url(r'^catalog/$', catalog),
+    url(r'^login/$', login_page),
+    url(r'^register/$', register_page),
+    url(r'^products-fbv/$', product_list_view),
+    url(r'^products/$', ProductListView.as_view()),
+    url(r'^products-fbv/(?P<pk>\d+)/$', product_detail_view),
+    url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
+
+    url(r'^$', home)
 ]
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [ url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT,})]
