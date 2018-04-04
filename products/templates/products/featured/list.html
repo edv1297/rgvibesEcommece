@@ -1,0 +1,9 @@
+
+{% for obj in object_list %}
+
+{{obj.title}} <br/>
+{{obj.description}}<br/>
+<p>Price: ${{obj.price}}</p>
+<button class="btn btn-success" >Purchase</button>
+<img src=" {{obj.picture.url}} " alt=""/>
+{% endfor %}

@@ -16,29 +16,30 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 
-from django.conf.urls import url
+from django.conf.urls import url,include
 from django.contrib import admin
 from django.views.static import serve
 
-from products.views import ProductListView, product_list_view, ProductDetailView, product_detail_view
 
-from .views import home,contact,about,catalog,login_page,register_page
+from .views import (
+    home,
+    contact,
+    about,
+    catalog,
+    login_page,
+    register_page
+)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^about/$', about),
-    url(r'^contact/$', contact),
-    url(r'^catalog/$', catalog),
-    url(r'^login/$', login_page),
-    url(r'^register/$', register_page),
-    url(r'^products-fbv/$', product_list_view),
-    url(r'^products/$', ProductListView.as_view()),
-    url(r'^products-fbv/(?P<pk>\d+)/$', product_detail_view),
-    url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
-
-    url(r'^$', home)
+    url(r'^$', home, name= 'home'),
+    url(r'^about/$', about, name = 'about'),
+    url(r'^contact/$', contact, name = 'contact'),
+    url(r'^login/$', login_page, name = 'login'),
+    url(r'^register/$', register_page, name = 'register'),
+    url(r'^products/', include("products.urls", namespace = 'products')), # namespace adds more specificity for each route
 ]
 
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += [ url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT,})]
+    urlpatterns += [ url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,})]

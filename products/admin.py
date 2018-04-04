@@ -3,5 +3,11 @@ from django.contrib import admin
 # Register your models here.
 from .models import Product
 
+
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'slug']
+    class Meta:
+        model = Product
+
 # Lets the admin site know about products
-admin.site.register(Product)
+admin.site.register(Product,ProductAdmin)

@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem; height:440px">
+
+  {% if obj.picture %}
+    <img class="card-img-top" src= '{{ obj.picture.url }}' alt="Card image cap">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{ obj.title }}</h5>
+    <p class="card-text">{{ obj.description|truncatewords:12 }}</p>
+    <a href='{{obj.get_absolute_url}}'class="btn btn-primary">Details</a>
+  </div>
+</div>

@@ -62,12 +62,12 @@ class RegisterForm(forms.Form):
     password_verification = forms.CharField(label="", max_length=25,
                 widget = forms.PasswordInput(
                         attrs = {"class":"form-control",
-                                "placeholder":"Password",
+                                "placeholder":"Verify password",
                                 "display":"none"}))
     country = forms.CharField(label="", max_length=25,
                 widget = forms.TextInput(
                         attrs = {"class":"form-control",
-                                "placeholder":"Where are you from?",
+                                "placeholder":"What country are you from?",
                                 "display":"none"}))
 
 

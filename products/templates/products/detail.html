@@ -1,8 +1,15 @@
-
-
-{{ object.title }}<br/>
-{{ object.description }}<br/>
-
-{{ object.picture.url }}<br/>
-
-<img src = '{{ object.picture.url }}' class = 'img-fluid'/>
+{% extends 'base.html'%}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>{{ object.title }}</h1><br/>
+      <h4> Date released: {{object.timestamp|date}}</h4>
+      {{ object.description|linebreaks }}<br/>
+        {% if object.picture %}
+          <img src = '{{ object.picture.url }}' class = 'img-fluid'alt =""/>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
