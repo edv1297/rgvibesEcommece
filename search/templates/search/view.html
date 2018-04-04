@@ -1,21 +1,28 @@
 {% extends 'base.html'%}
 
 {% block body %}
-
 <div class="row">
-{% if request.GET.q %}
+{% if query %}
   <div class="col-12 mb-3" >
-    <h1>Results for <b>{{ request.GET.q}}</b></h1>
+    <h1>Results for <b>{{ query }}</b></h1>
+
+    <div class="col-8 mx-auto">
+      {% include 'search/snippets/search-form.html' %}
+    </div>
+
+    <hr style="width: 100%; border-radius: 50%; height: .05rem; background-color:green;" />
   </div>
     {% else %}
-    <div class="col-12 col-md-8 mx-auto mb-3">
-      <input class = "form-control" type="text" name="" placeholder="Search" value="">
-    </div>
+    <div class="col-12 col-md-8 mx-auto mb-3 py-3">
+      {% include 'search/snippets/search-form.html' %}
+     </div>
+     <h1 class = "col-12">No results for {{ query }}</h1>
+     <hr style="width: 100%; border-radius: 50%; height: .05rem; background-color:gold;" />
+     <h2 class ='mx-auto mb-4'> Featured Products</h2>
 {% endif %}
 </div>
 
-
-
+<!-- Loading in the objects -->
   <div class="row">
   {% for obj in object_list %}
     <div class="col">
