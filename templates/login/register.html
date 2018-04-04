@@ -6,10 +6,10 @@
     <p>{{message}}</p>
   </div>
   <div class="container align" >
-    <div class="col-sm-6 col-12">
+    <div class="col-sm-6 col-12 mx-auto mb-3 text-center">
       <form method="POST"> {%csrf_token%}
         {{form}}
-         <button class = "btn btn-primary" name = "button" type="success" >Register</button>
+         <button class = "btn btn-block btn-primary" name = "button" type="success" >Register</button>
       </form>
     </div>
   </div>

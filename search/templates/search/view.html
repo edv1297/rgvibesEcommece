@@ -1,5 +1,21 @@
 {% extends 'base.html'%}
+
 {% block body %}
+
+<div class="row">
+{% if request.GET.q %}
+  <div class="col-12 mb-3" >
+    <h1>Results for <b>{{ request.GET.q}}</b></h1>
+  </div>
+    {% else %}
+    <div class="col-12 col-md-8 mx-auto mb-3">
+      <input class = "form-control" type="text" name="" placeholder="Search" value="">
+    </div>
+{% endif %}
+</div>
+
+
+
   <div class="row">
   {% for obj in object_list %}
     <div class="col">

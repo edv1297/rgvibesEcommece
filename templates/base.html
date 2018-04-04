@@ -10,8 +10,10 @@
   <body>
 
   {% include 'base/navbar.html' with brand_name='RG Vibes' %}
-  {% block body %}
-  {% endblock %}
+  <div class="container">
+    {% block body %}
+    {% endblock %}
+  </div>
   {% include 'base/js.html' %}
   </body>
 </html>

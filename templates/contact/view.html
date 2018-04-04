@@ -1,16 +1,21 @@
 {% extends '../base.html' %}
 {% block body %}
+  <div class="container">
+
+
   <div class="text-center">
     <br/>
     <h1>{{title}}</h1>
     <p>{{message}}</p>
   </div>
-  <div class="container align" >
-    <div class="col-sm-6 col-12">
+  <div class="container text-center">
+    <div class="col-sm-6 mr-auto ml-auto">
       <form method="POST"> {%csrf_token%}
         {{form}}
-        <button class ="btn btn-primary" type="success" name="button">Submit</button>
+        <button class ="btn btn-primary mt-3" type="success" name="button">Submit</button>
       </form>
     </div>
   </div>
+</div>
+
 {% endblock %}
