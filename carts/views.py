@@ -17,8 +17,8 @@ def cart_update(request):
         except Product.DoesNotExist:
             print("product is gone")
             redirect("cart:home")
-
         cart_obj, new_obj = Cart.objects.new_or_get(request)
+
         if product_obj in cart_obj.products.all():
             cart_obj.products.remove(product_obj)
         else:

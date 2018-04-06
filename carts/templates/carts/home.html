@@ -6,7 +6,7 @@
 
 <div class="col-sm-4">
   <h1>Cart</h1>
-  <p>Order number {{ cart.id }}</p>
+  <p>Order number: {{ cart.id }}</p>
 </div>
 
 {% if cart.products.exists %}
@@ -26,8 +26,13 @@
     {% for product in cart.products.all %}
     <tr>
       <th scope="row">
+
         <div class="img-container" style = "height:100px;">
+          {% if product.picture %}
           <img src="{{product.picture.url}}" style = "height: 100px;" alt=""></th>
+          {% else %}
+          <h1>{{product.title}}</h1>
+          {% endif %}
         </div>
 
       <td> <a href="{{product.get_absolute_url}}">{{product.title}}</a></td>
@@ -39,7 +44,7 @@
         </div>
       </td>
       <td>
-        <a href="#"> Remove </a>
+          {% include 'products/snippets/update-cart.html' with product=product cart=cart in_cart=True%}
       </td>
     </tr>
     {% endfor %}
