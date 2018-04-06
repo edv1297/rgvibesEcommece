@@ -3,7 +3,7 @@ import random
 from django.db import models
 from django.urls import reverse
 from django.db.models.signals import pre_save, post_save
-
+from django.db.models import Q
 from .utils import unique_slug_generator
 # Create your models here
 
@@ -32,6 +32,14 @@ class ProductQuerySet(models.query.QuerySet):
     def active(self):
         return self.filter(active= True)
 
+    def search(self,query):
+        lookups = (Q(title__icontains = query) |
+                   Q(description__icontains=query)|
+                   Q(price__icontains = query)|
+                   Q(producttag__title__icontains = query))
+
+        return self.filter(lookups).distinct()
+
 # Manages how every product is accessed from the database, works closely with above fun
 class ProductManager(models.Manager):
     def get_queryset(self):
@@ -48,6 +56,8 @@ class ProductManager(models.Manager):
         if qs.count() == 1:
             return qs.first()
         return None
+    def search(self,query):
+        return self.get_queryset().active().search(query)
 
 class Product(models.Model):
     title       = models.CharField(max_length = 120)
@@ -61,7 +71,7 @@ class Product(models.Model):
     objects     = ProductManager()
 
     def __str__(self):
-        return self.title
+        return self.title + ": $" + str(self.price)
 
     def get_absolute_url(self):
         return reverse("products:detail", kwargs = {"slug": self.slug})

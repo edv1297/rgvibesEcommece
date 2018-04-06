@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+
+{% block body %}
+<div>
+
+
+<div class="col-sm-4">
+  <h1>Cart</h1>
+  <p>Order number {{ cart.id }}</p>
+</div>
+
+{% if cart.products.exists %}
+<table class="table table-striped">
+  <thead class = "thead-dark">
+    <tr>
+      <th scope="col-3">Product</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Modify</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for product in cart.products.all %}
+    <tr>
+      <th scope="row">
+        <div class="img-container" style = "height:100px;">
+          <img src="{{product.picture.url}}" style = "height: 100px;" alt=""></th>
+        </div>
+
+      <td> <a href="{{product.get_absolute_url}}">{{product.title}}</a></td>
+      <td>{{product.description}}</td>
+      <td>${{product.price}}</td>
+      <td>
+        <div class="">
+          1
+        </div>
+      </td>
+      <td>
+        <a href="#"> Remove </a>
+      </td>
+    </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="5"></td>
+      <td><b> Subtotal </b> {{cart.subtotal}}</td>
+    </tr>
+
+  </tbody>
+</table>
+
+{% else %}
+<p class = "lead"> empty cart</p>
+{% endif %}
+
+  <div class= "col-3 ml-auto" >
+    <h3>Grand total:
+      <span style="color:green; font-size:1.8rem;">${{cart.total}}</span></h3>
+  </span>
+  </div>
+</div>
+{% endblock %}
