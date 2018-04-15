@@ -52,7 +52,6 @@
       <td colspan="5"></td>
       <td><b> Subtotal </b> {{cart.subtotal}}</td>
     </tr>
-
   </tbody>
 </table>
 
@@ -60,10 +59,14 @@
 <p class = "lead"> empty cart</p>
 {% endif %}
 
-  <div class= "col-3 ml-auto" >
-    <h3>Grand total:
-      <span style="color:green; font-size:1.8rem;">${{cart.total}}</span></h3>
-  </span>
-  </div>
+<div class= "col-3 ml-auto" >
+  <h3>Grand total:
+    <span style="color:green; font-size:1.8rem;">${{cart.total}}</span></h3>
+</span>
+</div>
+<div class= "col-2   ml-auto" >
+    <a href='{% url 'cart:checkout' %}' class= "btn btn-primary" >Proceed to checkout</a>
+</span>
+</div>
 </div>
 {% endblock %}

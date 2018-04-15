@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'checkout',
     'products',
     'search',
-    'tags'
+    'tags',
+    'orders',
+    'accounts',
+    'addresses',
+    'billing'
 
 ]
 
@@ -58,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'rshop.urls'
-
+LOGOUT_REDIRECT_URL = '/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

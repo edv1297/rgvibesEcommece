@@ -1,6 +1,6 @@
 {% extends '../base.html' %}
 {% block body %}
-  <div class="container">
+  <div class="col-12">
 
 
   <div class="text-center">
@@ -9,7 +9,7 @@
     <p>{{message}}</p>
   </div>
   <div class="container text-center">
-    <div class="col-sm-6 mr-auto ml-auto">
+    <div class="col-md-8 mr-auto ml-auto">
       <form method="POST"> {%csrf_token%}
         {{form}}
         <button class ="btn btn-primary mt-3" type="success" name="button">Submit</button>
