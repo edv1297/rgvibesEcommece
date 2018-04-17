@@ -7,7 +7,7 @@ from django.contrib.auth.views import LogoutView
 from django.views.static import serve
 
 from accounts.views import login_page, register_page, guest_register_view
-from addresses.views import checkout_address_create_view
+from addresses.views import checkout_address_create_view, checkout_address_reuse
 from .views import (
     home,
     contact,
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^$', home, name= 'home'),
     url(r'^about/$', about, name = 'about'),
     url(r'^checkout/address/create', checkout_address_create_view, name ='checkout_address_create'),
+    url(r'^checkout/address/reuse', checkout_address_reuse, name ='checkout_address_reuse'),
     url(r'^contact/$', contact, name = 'contact'),
     url(r'^login/$', login_page, name = 'login'),
     url(r'^logout/$', LogoutView.as_view(), name = 'logout'),
