@@ -1,13 +1,11 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 
 {% block body %}
 <div>
-
-
-<div class="col-sm-4">
-  <h1>Cart</h1>
-  <p>Order number: {{ cart.id }}</p>
-</div>
+  <div class="col-sm-4">
+    <h1>Cart</h1>
+    <p>Order number: {{ cart.id }}</p>
+  </div>
 
 {% if cart.products.exists %}
 <table class="table table-striped">

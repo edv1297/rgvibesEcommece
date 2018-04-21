@@ -15,5 +15,37 @@
     {% endblock %}
   </div>
   {% include 'base/js.html' %}
+
+  <script>
+    $(document).ready(function(){
+      console.log("doc is ready");
+
+      var form = $(".form-product-ajax")
+      form.submit(function(e){
+        e.preventDefault();
+        var thisForm = $(this)
+        var actionEndpoint = thisForm.attr("action");
+        var httpMethod = thisForm.attr("method");
+        var formData = thisForm.serialize();
+
+        $.ajax({
+          url: actionEndpoint,
+          method:httpMethod,
+          data:formData,
+
+          success: function(data){
+            console.log("success");
+            console.log(data);
+          },
+          error: function(errData){
+            console.log("Error");
+            console.log(errData);
+
+          },
+        })
+
+      });
+    });
+  </script>
   </body>
 </html>

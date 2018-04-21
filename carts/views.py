@@ -49,7 +49,6 @@ def checkout_home(request):
 # If there exists a billing_profile, we verify that the billing profile and cart we are using is the same as the session's billing profile and cart
     if billing_profile is not None:
         if request.user.is_authenticated():
-            print(billing_profile)
             address_qs = Address.objects.filter(billing_profile=billing_profile)
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
         if shipping_address_id:
@@ -68,15 +67,18 @@ def checkout_home(request):
             order_obj.mark_paid()
             del request.session['cart_id']
             request.session['cart_items'] = 0
-            return redirect("/cart/success")
+            return redirect("cart:success")
 
     context ={
-    "object":order_obj,
-    "billing_profile":billing_profile,
-    "login_form":login_form,
-    "guest_form":guest_form,
-    "address_form": address_form,
-    "address_qs": address_qs
+        "object":order_obj,
+        "billing_profile":billing_profile,
+        "login_form":login_form,
+        "guest_form":guest_form,
+        "address_form": address_form,
+        "address_qs": address_qs,
     }
 
     return render(request, "carts/checkout.html", context)
+
+def checkout_done_view(request):
+    return render(request, "carts/checkout-done.html", {})
