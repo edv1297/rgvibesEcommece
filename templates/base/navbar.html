@@ -42,7 +42,7 @@
       <div class="ml-auto">
         <li class="nav-item {% if request.path == cart_url %}active{% endif %}">
           <a class="nav-link" href='{{cart_url}}'>
-            <i class="fas fa-shopping-cart"></i>  {{request.session.cart_items}}
+            <i class="fas fa-shopping-cart"></i>  <span class = 'navbar-car-count'>{{request.session.cart_items}}</span>
           </a>
         </li>
       </div>

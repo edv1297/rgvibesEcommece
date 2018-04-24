@@ -8,7 +8,7 @@
   </div>
 
 {% if cart.products.exists %}
-<table class="table table-striped">
+<table class="table table-striped cart-table">
   <thead class = "thead-dark">
     <tr>
       <th scope="col-3">Product</th>
@@ -19,12 +19,10 @@
       <th scope="col">Modify</th>
     </tr>
   </thead>
-  <tbody>
-
+  <tbody class = 'cart-body'>
     {% for product in cart.products.all %}
-    <tr>
+    <tr class = 'cart-product'>
       <th scope="row">
-
         <div class="img-container" style = "height:100px;">
           {% if product.picture %}
           <img src="{{product.picture.url}}" style = "height: 100px;" alt=""></th>
@@ -48,9 +46,9 @@
     {% endfor %}
     <tr>
       <td colspan="5"></td>
-      <td><b> Subtotal </b> {{cart.subtotal}}</td>
+      <td><b> Subtotal: </b> <span class = 'cart-subtotal'>${{cart.subtotal}}</span></td>
     </tr>
-  </tbody>
+
 </table>
 
 {% else %}
@@ -59,12 +57,12 @@
 
 <div class= "col-3 ml-auto" >
   <h3>Grand total:
-    <span style="color:green; font-size:1.8rem;">${{cart.total}}</span></h3>
-</span>
+    <span class = 'cart-total'>${{cart.total}}</span></h3>
 </div>
-<div class= "col-2   ml-auto" >
+  </tbody>
+<div class= "col-2 ml-auto">
     <a href='{% url 'cart:checkout' %}' class= "btn btn-primary" >Proceed to checkout</a>
 </span>
 </div>
-</div>
+
 {% endblock %}

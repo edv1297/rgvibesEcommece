@@ -10,7 +10,7 @@
   </div>
   <div class="container text-center">
     <div class="col-md-8 mr-auto ml-auto">
-      <form method="POST"> {%csrf_token%}
+      <form class = 'contact-form' method="POST" action = '{% url 'contact' %}'> {%csrf_token%}
         {{form}}
         <button class ="btn btn-primary mt-3" type="success" name="button">Submit</button>
       </form>

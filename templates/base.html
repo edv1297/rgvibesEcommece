@@ -17,14 +17,66 @@
   {% include 'base/js.html' %}
 
   <script>
-    $(document).ready(function(){
-      console.log("doc is ready");
 
+
+
+    $(document).ready(function(){
+
+      //Contact form handler
+      var contactForm = $(".contact-form")
+      var contactFormMethod = contactForm.attr('method')
+      var contactFormEndpoint = contactForm.attr('action')
+      contactForm.submit(function(event) {
+        event.preventDefault()
+
+        var contactFormData = contactForm.serialize()
+
+        $.ajax({
+          url: contactFormEndpoint,
+          method:contactFormMethod,
+          data:contactFormData,
+        })
+      })
+
+
+
+      //SEARCH FORM HANDLER
+      var searchForm = $(".search-form")
+      var searchInput = searchForm.find("[name='q']")
+      var typeTimer;
+      var typingInterval = 500;
+      var searchBtn = searchForm.find("[type='submit']")
+      // key released
+      searchInput.keyup(function(event){
+        clearTimeout(typeTimer)
+        typeTimer = setTimeout(performSearch, typingInterval)
+      })
+
+      //key pressed
+      searchInput.keydown(function(event){
+        clearTimeout(typeTimer)
+      })
+
+      function searchAnimation(){
+        searchBtn.addClass("disabled")
+        searchBtn.html("<i class= 'fa fa-spin fa-spinner'></i> Products loading")
+      }
+
+      function performSearch() {
+        searchAnimation()
+        var searchQuery = searchInput.val()
+        setTimeout(function(){
+          window.location.href= '/search/?q=' + searchQuery
+        }, 1000)
+
+
+
+      }
       var form = $(".form-product-ajax")
       form.submit(function(e){
         e.preventDefault();
         var thisForm = $(this)
-        var actionEndpoint = thisForm.attr("action");
+        var actionEndpoint = thisForm.attr("data-endpoint");
         var httpMethod = thisForm.attr("method");
         var formData = thisForm.serialize();
 
@@ -35,17 +87,77 @@
 
           success: function(data){
             console.log("success");
-            console.log(data);
+            console.log(data.added);
+            var submitSpan = thisForm.find(".submit-span")
+
+            if (data.added) {
+              submitSpan.html("<button class='btn btn-primary btn-warning' type = 'submit' name='button'>Remove from cart</button>")
+            }else{
+              submitSpan.html("<button class='btn btn-primary btn-success' type = 'submit' name='button'>Add to cart</button>")
+            }
+            //Update the count of the cart
+            var cartCount = $(".navbar-car-count")
+            cartCount.text(data.cartItemCount)
+
+            //get the path of the current window and check if we are inside the cart
+            var currentPath = window.location.href
+            if (currentPath.indexOf("cart")!= -1){
+              refreshCart()
+            }
           },
           error: function(errData){
-            console.log("Error");
-            console.log(errData);
-
+            $.alert({
+              title: "Error",
+              content:"An error has occured",
+              theme:"modern",
+            })
           },
-        })
-
+        });
       });
+
+      function refreshCart(){
+        console.log("Updated cart ");
+        var cartTable = $(".cart-table")
+        var cartBody = cartTable.find('.cart-body')
+
+        var productRows = cartBody.find(".cart-product")
+
+        var refreshCartUrl = "/api/cart/";
+        var refreshCartMethod = "GET"
+        var refreshCartData = {};
+        var currentUrl = window.location.href
+        $.ajax({
+          url: refreshCartUrl,
+          method:refreshCartMethod,
+          data:refreshCartData,
+          success: function(data){
+            console.log("success", data);
+            if (data.products.length>0){
+              productRows.html(" ")
+
+
+              $.each(data.products, function(index,value){
+                cartBody.prepend("<tr><th scope=\"row\">"+ i +"</th><td><a href = '" + value
+                .url + "'>" + value.name + "</a></td><td>"+ value.description +"</td><td>"+ value.price + "</td></tr>")
+              })
+
+
+              cartBody.find(".cart-subtotal").text(data.subtotal)
+              cartBody.find(".cart-total").text(data.total)
+            }else{
+              window.location.href = currentUrl
+            }
+          },
+          error: function(errorData){
+            $.alert({
+              title: "Error",
+              content:"An error has occured",
+              theme:"modern",
+            })
+          }
+        });
+      }
     });
-  </script>
+    </script>
   </body>
 </html>
