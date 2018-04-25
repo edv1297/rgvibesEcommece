@@ -13,7 +13,7 @@ class BillingProfileManager(models.Manager):
         obj = None
 
         #create a new billing profile if user is authenticated remember payment information
-        if user.is_authenticated():
+        if user.is_authenticated:
             obj, created = self.model.objects.get_or_create(user=user, email=user.email)
 
         # Guest user checkout auto load payment info
@@ -28,7 +28,7 @@ class BillingProfileManager(models.Manager):
 
 class BillingProfile(models.Model):
 
-    user            = models.OneToOneField(User, null = True, blank = True)
+    user            = models.OneToOneField(User, null = True, blank = True,on_delete=models.DO_NOTHING,)
     email           = models.EmailField(default = '', null = False)
     timestamp       = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated         = models.DateTimeField(auto_now=True, null=True, blank=True)

@@ -34,13 +34,13 @@ class OrderManager(models.Manager):
 
 class Order(models.Model):
     order_id            = models.CharField(max_length= 120, blank = True)
-    shipping_address    = models.ForeignKey(Address, related_name = 'shipping_address', null = True, blank = True)
-    billing_address     = models.ForeignKey(Address, related_name = 'billing_address', null = True, blank = True)
-    cart                = models.ForeignKey(Cart)
+    shipping_address    = models.ForeignKey(Address, related_name = 'shipping_address', null = True, blank = True, on_delete=models.DO_NOTHING,)
+    billing_address     = models.ForeignKey(Address, related_name = 'billing_address', null = True, blank = True, on_delete=models.DO_NOTHING,)
+    cart                = models.ForeignKey(Cart, on_delete=models.DO_NOTHING,)
     status              = models.CharField(max_length = 120, default = 'created', choices = ORDER_STATUS_CHOICES)
     total               = models.DecimalField(default = 0.00, max_digits = 8, decimal_places = 2)
     shipping_total      = models.DecimalField(default = 5.99, max_digits = 8, decimal_places = 2)
-    billing_profile     = models.ForeignKey(BillingProfile, null = True, blank = True)
+    billing_profile     = models.ForeignKey(BillingProfile, null = True, blank = True, on_delete=models.DO_NOTHING,)
     active              = models.BooleanField(default = True)
 
     def __str__(self):
@@ -72,7 +72,7 @@ class Order(models.Model):
             self.save()
             return self.status
         else:
-            self.status = 'processing' 
+            self.status = 'processing'
             self.save()
             return self.status
 

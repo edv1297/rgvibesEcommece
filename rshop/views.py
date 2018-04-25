@@ -8,7 +8,7 @@ def home(request):
     "title": "Testing out context",
 
     }
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         context["premium_content"] = "You are logged in!"
     return render(request, 'home/view.html',context)
 

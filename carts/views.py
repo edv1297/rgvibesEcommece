@@ -76,7 +76,7 @@ def checkout_home(request):
     address_qs = None
 # If there exists a billing_profile, we verify that the billing profile and cart we are using is the same as the session's billing profile and cart
     if billing_profile is not None:
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             address_qs = Address.objects.filter(billing_profile=billing_profile)
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
         if shipping_address_id:

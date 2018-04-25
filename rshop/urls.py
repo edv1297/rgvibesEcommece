@@ -29,9 +29,9 @@ urlpatterns = [
     url(r'^logout/$', LogoutView.as_view(), name = 'logout'),
     url(r'^register/$', register_page, name = 'register'),
     url(r'^register/guest$', guest_register_view, name = 'guest_register'),
-    url(r'^products/', include("products.urls", namespace = 'products')), # namespace adds more specificity for each route
-    url(r'^search/', include("search.urls", namespace = 'search')),
-    url(r'^cart/', include("carts.urls", namespace = 'cart'))
+    url(r'^products/', include('products.urls', namespace = 'products')), # namespace adds more specificity for each route
+    url(r'^search/', include('search.urls', namespace = 'search')),
+    url(r'^cart/', include('carts.urls', namespace = 'cart')),
 ]
 
 if settings.DEBUG:
